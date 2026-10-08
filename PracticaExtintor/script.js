@@ -1,135 +1,66 @@
 const cartel = document.querySelector(".cartel");
 const status = document.querySelector(".status");
 
-let contexto;
-let fuente;
-let volumen;
+const sonido = new Audio("./fuego.mp3");
+sonido.loop = true;
+sonido.volume = 0.5;
+
 let mouseEncima = false;
-let habilitado = false;
 
-function register(texto) {
-  status.textContent = texto;
-}
-
-function crearSonido() {
-  const duracion = 4;
-  const frecuencia = contexto.sampleRate;
-  const cantidad = frecuencia * duracion;
-
-  const buffer = contexto.createBuffer(
-    1,
-    cantidad,
-    frecuencia
-  );
-
-  const datos = buffer.getChannelData(0);
-
-  let anterior = 0;
-
-  for (let i = 0; i < cantidad; i++) {
-    const ruido = Math.random() * 2 - 1;
-
-    anterior = anterior * 0.85 + ruido * 0.15;
-    datos[i] = anterior * 0.25;
-  }
-
-  for (let chispa = 0; chispa < 100; chispa++) {
-    const inicio = Math.floor(
-      Math.random() * (cantidad - 1500)
-    );
-
-    const largo = 100 + Math.floor(Math.random() * 1400);
-    const fuerza = 0.2 + Math.random() * 0.6;
-
-    for (let j = 0; j < largo; j++) {
-      const ruido = Math.random() * 2 - 1;
-      const caida = Math.exp(-j / (largo / 6));
-
-      datos[inicio + j] += ruido * fuerza * caida;
-    }
-  }
-
-  return buffer;
+function detener() {
+    sonido.pause();
+    sonido.currentTime = 0;
 }
 
 function reproducir() {
-  if (!habilitado || contexto.state !== "running") {
-    register("Haga clic en el cartel para habilitar el sonido.");
-    return;
-  }
+    sonido.play().then(function() {
+        if (!mouseEncima) {
+            detener();
+        }
+    }).catch(function(error) {
+        if (error.name === "NotAllowedError") {
+            status.textContent =
+                "Haga clic en el cartel para habilitar el sonido.";
+        } else if (error.name !== "AbortError") {
+            status.textContent =
+                "No se pudo reproducir fuego.mp3. Revise el archivo.";
+        }
 
-  if (fuente) {
-    return;
-  }
-
-  fuente = contexto.createBufferSource();
-  fuente.buffer = crearSonido();
-  fuente.loop = true;
-
-  volumen = contexto.createGain();
-  volumen.gain.value = 0.6;
-
-  fuente.connect(volumen);
-  volumen.connect(contexto.destination);
-
-  fuente.start();
-
-  register("Sonido de fuego reproduciéndose.");
+        console.log("Error de audio:", error);
+    });
 }
 
-function detener() {
-  if (fuente) {
-    fuente.stop();
-    fuente.disconnect();
-    volumen.disconnect();
-
-    fuente = null;
-    volumen = null;
-  }
-
-  register("Sonido detenido.");
-}
-
-cartel.addEventListener("click", async () => {
-  try {
-    if (!contexto) {
-      const AudioContext =
-        window.AudioContext || window.webkitAudioContext;
-
-      contexto = new AudioContext();
-    }
-
-    await contexto.resume();
-    habilitado = contexto.state === "running";
-
-    mouseEncima = cartel.matches(":hover");
-
-    if (mouseEncima && !document.hidden) {
-      reproducir();
-    } else {
-      register("Sonido habilitado. Pase el mouse por el cartel.");
-    }
-  } catch (error) {
-    register("No se pudo habilitar el sonido.");
-    console.error(error);
-  }
+cartel.addEventListener("mouseenter", function() {
+    mouseEncima = true;
+    reproducir();
 });
 
-cartel.addEventListener("mouseenter", () => {
-  mouseEncima = true;
-  reproducir();
-});
-
-cartel.addEventListener("mouseleave", () => {
-  mouseEncima = false;
-  detener();
-});
-
-document.addEventListener("visibilitychange", () => {
-  if (document.hidden) {
+cartel.addEventListener("mouseleave", function() {
     mouseEncima = false;
     detener();
-  }
 });
 
-register("Haga clic en el cartel para habilitar el sonido.");
+cartel.addEventListener("click", function() {
+    mouseEncima = true;
+    reproducir();
+});
+
+sonido.addEventListener("play", function() {
+    status.textContent = "Sonido de fuego reproduciéndose.";
+});
+
+sonido.addEventListener("pause", function() {
+    status.textContent = "Sonido detenido.";
+});
+
+sonido.addEventListener("error", function() {
+    status.textContent =
+        "No se pudo cargar fuego.mp3. Revise su nombre y ubicación.";
+});
+
+document.addEventListener("visibilitychange", function() {
+    if (document.hidden) {
+        mouseEncima = false;
+        detener();
+    }
+});
