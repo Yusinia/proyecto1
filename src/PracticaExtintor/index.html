@@ -1,0 +1,88 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Extintor</title>
+
+    <link rel="stylesheet" href="./estilo.css">
+    <script src="./script.js" defer></script>
+  </head>
+<body>
+
+   <main class="contenedor">
+    <div class="cartel">
+      <header class="encabezado">
+        <h1 class="titulo">EXTINTOR</h1>
+        <p class="subtitulo">
+          ÚSELO ÚNICAMENTE EN FUEGO CLASE
+        </p>
+      </header>
+
+      <section class="tipo-fuego">
+        <div class="triangulo">
+          <span class="letra">A</span>
+        </div>
+
+        <svg
+          class="simbolo"
+          viewBox="0 0 124 100"
+          role="img"
+          aria-label="Sólidos combustibles"
+        >
+          <g fill="white">
+            <path d="M21 41h37l-4 46H26z"/>
+            <path d="M18 36l21-14 22 14z"/>
+            <path d="M25 28C15 20 27 18 22 8c12 9-1 13 10 19z"/>
+            <path d="M42 22c-8-9 7-11 4-20 12 12-4 13 6 25z"/>
+            <path d="M57 29c-7-8 7-12 3-20 13 12-1 15 6 25z"/>
+            <path
+              d="M87 78C57 70 73 55 80 45
+                 c-1 15 11 9 6-10
+                 16 12 8 20 13 24
+                 9-7 8-16 7-19
+                 13 22 7 37-6 39
+                 5-9-3-10-3-18
+                 -3 9-10 11-10 17z"
+            />
+            <rect
+              x="64" y="83" width="45" height="6" rx="3"
+              transform="rotate(-17 85 86)"
+            />
+            <rect
+              x="65" y="82" width="44" height="6" rx="3"
+              transform="rotate(18 87 85)"
+            />
+          </g>
+        </svg>
+
+        <h2 class="combustibles">SÓLIDOS COMBUSTIBLES</h2>
+        <p class="materiales">
+          madera, papel,<br>
+          tela, basura<br>
+          cartones
+        </p>
+      </section>
+
+      <section class="uso">
+        <h2 class="metodo">MÉTODO PARA UTILIZARLO</h2>
+        <ol class="instrucciones">
+          <li>Sosténgalo en posición vertical.</li>
+          <li>Retire el seguro.</li>
+          <li>Oprima la palanca.</li>
+          <li>Dirija la descarga contra la base de la llama.</li>
+        </ol>
+      </section>
+
+      <div class="franjas" aria-hidden="true"></div>
+    </div>
+
+    <p class="ayuda">
+      Pase el mouse sobre el cartel.<br>
+      Si no suena, haga clic para habilitar el sonido.
+    </p>
+
+    <div class="status" role="status">Sonido detenido.</div>
+  </main>
+
+</body>
+</html>

@@ -1,0 +1,135 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 12px;
+  min-height: 100vh;
+  background-color: #dededb;
+  font-family: Arial, sans-serif;
+}
+
+.contenedor {
+  width: 470px;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.cartel {
+  padding: 10px;
+  border: 7px solid #eeeeea;
+  background-color: white;
+  text-align: center;
+  box-shadow: 0 5px 20px #0003;
+  cursor: pointer;
+  transition: box-shadow 0.3s;
+}
+
+.cartel:hover {
+  box-shadow: 0 0 25px #c9000066;
+}
+
+.titulo {
+  margin: 0;
+  background-color: #c90000;
+  color: white;
+  font-size: clamp(35px, 10vw, 67px);
+  font-weight: 900;
+  line-height: 1.15;
+}
+
+.subtitulo {
+  margin: 8px 0;
+  font-size: clamp(12px, 3vw, 18px);
+  font-weight: bold;
+}
+
+.triangulo {
+  width: 80px;
+  height: 73px;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  background-color: #00672b;
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+
+.letra {
+  color: white;
+  font-size: 59px;
+  line-height: 1;
+  font-weight: 900;
+}
+
+.simbolo {
+  display: block;
+  width: 90px;
+  height: 73px;
+  margin: 8px auto;
+  background-color: #002c70;
+  border-radius: 10px;
+}
+
+.combustibles {
+  margin: 6px 0 4px;
+  font-size: 13px;
+}
+
+.materiales {
+  margin: 0 0 12px;
+  font-size: 17px;
+  font-weight: bold;
+  line-height: 1.15;
+}
+
+.metodo {
+  margin: 0;
+  color: #002c70;
+  font-size: clamp(16px, 4vw, 22px);
+  font-weight: 900;
+}
+
+.instrucciones {
+  margin: 6px 0 12px;
+  padding-left: 26px;
+  text-align: left;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 1.35;
+}
+
+.franjas {
+  height: 100px;
+  background: repeating-linear-gradient(
+    117deg,
+    #c90000 0,
+    #c90000 85px,
+    white 85px,
+    white 160px
+  );
+}
+
+.ayuda {
+  margin: 10px 0 5px;
+  text-align: center;
+  font-size: 13px;
+}
+
+.status {
+  min-height: 20px;
+  text-align: center;
+  font-size: 13px;
+  color: #555;
+}
+
+@media (max-width: 400px) {
+  .instrucciones {
+    font-size: 14px;
+  }
+
+  .franjas {
+    height: 75px;
+  }
+}
